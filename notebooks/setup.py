@@ -11,11 +11,11 @@ import pytorch_lightning as pl
 import torch
 
 
-"""
-This file contains every common class and function used in this project. 
-It also contains the setup for every dataset used in various recommender system techniques.
-To view the implementation of the corresponding model, check its specific file.
-"""
+
+#This file contains every common class and function used in this project. 
+#It also contains the setup for every dataset used in various recommender system techniques.
+#To view the implementation of the corresponding model, check its specific file.
+
 
 def read_ratings(ratings_csv, data_dir = "data/raw") -> pd.DataFrame :
     '''
@@ -91,10 +91,7 @@ class MovieLens(BaseDataset):
         return random_split(self, [train_len, test_len])
 
 class LightDataModule(pl.LightningDataModule):
-    def __init__(self, dataset: BaseDataset,
-                 train_ratio=0.8, batch_size=32,
-                 num_workers=2, prefetch_factor=16):
-        """DataModule for PyTorch Lightning
+    """DataModule for PyTorch Lightning.
 
         Parameters
         ----------
@@ -109,6 +106,9 @@ class LightDataModule(pl.LightningDataModule):
         prefetch_factor : int, optional
             Number of batches to prefecth, by default 16
         """
+    def __init__(self, dataset: BaseDataset,
+                 train_ratio=0.8, batch_size=32,
+                 num_workers=2, prefetch_factor=16):
         self.dataset = dataset
         self.train_ratio = train_ratio
         self.dataloader_kwargs = {
@@ -131,6 +131,7 @@ class LightDataModule(pl.LightningDataModule):
 
     def test_dataloader(self):
         return DataLoader(self.test_split, **self.dataloader_kwargs, shuffle=False)
+
 
 class LightModel(pl.LightningModule):
     """Lightning Module to train model"""
