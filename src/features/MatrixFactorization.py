@@ -64,7 +64,7 @@ class LightMF(LightModel):
         self.metrics.update(model_outputs, true_rating)
     
     def forward(self, batch):
-        print(f"batch from forward call:\n{batch}")
+        #print(f"batch from forward call:\n{batch}")
         users, movies, _ = batch
 
         #print(f"Users: {users} \n Users shape: {users.shape}")
