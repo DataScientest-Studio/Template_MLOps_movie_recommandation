@@ -10,14 +10,14 @@ from torchmetrics import MeanSquaredError
 import pytorch_lightning as pl
 import torch
 
+from sklearn.preprocessing import LabelEncoder
 
 
 #This file contains every common class and function used in this project. 
 #It also contains the setup for every dataset used in various recommender system techniques.
 #To view the implementation of the corresponding model, check its specific file.
 
-
-def read_ratings(ratings_csv, data_dir = "data/raw") -> pd.DataFrame :
+def read_ratings(ratings, data_dir = "data/raw") -> pd.DataFrame :
     '''
     Reads a ratings.csv from the data/raw folder.
 
@@ -30,9 +30,22 @@ def read_ratings(ratings_csv, data_dir = "data/raw") -> pd.DataFrame :
     -------
     pd.DataFrame
         The ratings DataFrame. Its columns are, in order:
-        "userId", "itemId", "rating" and "timestamp".
+        "userId", "movieId", "rating" and "timestamp".
     '''
-    data = pd.read_csv(os.path.join(data_dir, ratings_csv))
+    data = pd.read_csv(os.path.join(data_dir, ratings),
+                       header = None, 
+                       sep = "::", 
+                       names = ["userId",
+                                "movieId",
+                                "rating",
+                                "timestamp"])
+
+    temp = pd.DataFrame(LabelEncoder().fit_transform(data["movieId"]))
+    data["movieId"] = temp
+
+    data["userId"] -= 1
+
+    #print(f"data from read_ratings(): {data.head()}")
     return data
 
 class BaseDataset(Dataset, ABC):
@@ -49,12 +62,12 @@ class BaseDataset(Dataset, ABC):
         '''
 
 class MovieLens(BaseDataset):
-    def __init__(self, ratings_csv, data_dir="data/raw", normalize=False):
+    def __init__(self, ratings_csv, data_dir="data/processed", normalize=False):
         '''
         MovieLens for Matrix Factorization
         Each sample is a tuple of:
         - user_id: int
-        - item_id: int
+        - movie_id: int
         - rating: float
 
         Parameters
@@ -66,16 +79,13 @@ class MovieLens(BaseDataset):
         '''
         self.data_dir = data_dir
         self.df = read_ratings(ratings_csv, data_dir)
-        # We'll substract 1 to each ID so that we can use zero-based indexing
-        self.df.userId -= 1
-        self.df.itemId -= 1
         # If normalize is True, we'll divide the ratings by 5.0 (max)
         if normalize:
             self.df.rating /= 5.0
         self.num_users = self.df.userId.nunique()
-        self.num_items = self.df.itemId.nunique()
+        self.num_movies = self.df.movieId.nunique()
         self.user_id = self.df.userId.values
-        self.item_id = self.df.itemId.values
+        self.movie_id = self.df.movieId.values
         self.rating = self.df.rating.values.astype(np.float32)
         self.timestamp = self.df.timestamp
 
@@ -83,7 +93,7 @@ class MovieLens(BaseDataset):
         return len(self.df)
     
     def __getitem__(self, idx):
-        return self.user_id[idx], self.item_id[idx], self.rating[idx]
+        return self.user_id[idx], self.movie_id[idx], self.rating[idx]
     
     def split(self, train_ratio = 0.8):
         train_len = int(train_ratio*len(self))
@@ -108,7 +118,7 @@ class LightDataModule(pl.LightningDataModule):
         """
     def __init__(self, dataset: BaseDataset,
                  train_ratio=0.8, batch_size=32,
-                 num_workers=2, prefetch_factor=16):
+                 num_workers=8, prefetch_factor=16):
         self.dataset = dataset
         self.train_ratio = train_ratio
         self.dataloader_kwargs = {
@@ -118,18 +128,23 @@ class LightDataModule(pl.LightningDataModule):
         }
 
     def setup(self):
+        print("Initiating setup")
         self.num_users = getattr(self.dataset, "num_users", None)
-        self.num_items = getattr(self.dataset, "num_items", None)
+        self.num_movies = getattr(self.dataset, "num_movies", None)
         self.train_split, self.test_split = self.dataset.split(
             self.train_ratio)
+        print("Setup has been successfully executed.")
 
     def train_dataloader(self):
+        #print("train_dataloader()")
         return DataLoader(self.train_split, **self.dataloader_kwargs, shuffle=True)
 
     def val_dataloader(self):
+        #print("val_dataloader()")
         return DataLoader(self.test_split, **self.dataloader_kwargs, shuffle=False)
 
     def test_dataloader(self):
+        #print("test_dataloader")
         return DataLoader(self.test_split, **self.dataloader_kwargs, shuffle=False)
 
 
@@ -174,7 +189,7 @@ class LightModel(pl.LightningModule):
         loss = self._common_step(batch, batch_idx)
         return loss
     
-    def training_epoch_end(self, outputs):
+    '''def training_epoch_end(self, outputs):
         avg_loss = torch.stack([x["loss"] for x in outputs]).mean()
         self.logger.experiment.add_scalar(
             "train/loss", avg_loss, self.current_epoch)
@@ -184,6 +199,6 @@ class LightModel(pl.LightningModule):
         self.logger.experiment.add_scalar(
             "val/loss", avg_loss, self.current_epoch)
         self.logger.experiment.add_scalar(
-            "val/rsme", self.rmse.compute(), self.current_epoch)
-        self.rmse.reset()
-
+            "val/metric", self.metrics.compute(), self.current_epoch)
+        self.metrics.reset()
+'''

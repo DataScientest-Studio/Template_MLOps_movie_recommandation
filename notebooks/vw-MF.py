@@ -47,13 +47,16 @@ class LitMF(LitModel):
 
     def forward(self, batch):
         user_ids, item_ids, _ = batch
+
+        #print(f"Movies: {item_ids} \n Movies shape: {item_ids.shape}")
+        print(f"item_ids: {item_ids}")
         return self.model(user_ids, item_ids)
         
 
 
 def main(args):
 
-    data = LitDataModule(ML100K(), batch_size=args.batch_size, num_workers=args.num_workers)
+    data = LitDataModule(ML100K(), batch_size=args.batch_size)
     data.setup()
     model = LitMF(MatrixFactorization, sparse=False, 
         num_users=data.num_users, num_items=data.num_items,
@@ -70,8 +73,7 @@ def main(args):
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--embedding_dims", type=int, default=30)
-    #parser.add_argument("--num_workers", type = int, default=8)
-    parser.add_argument("--batch_size", type=int, default=512)
+    parser.add_argument("--batch_size", type=int, default=16)
     #parser.add_argument("--max_epochs", type=int, default=100)
     pl.Trainer.add_argparse_args(parser)
     args = parser.parse_args()

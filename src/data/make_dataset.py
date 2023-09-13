@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import click
 import logging
+import shutil
+import os
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 
@@ -14,6 +16,10 @@ def main(input_filepath, output_filepath):
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
+    dest_file = os.path.join(output_filepath, "ratings.dat")
+    os.makedirs(os.path.dirname(dest_file), exist_ok = True)
+    src_file = os.path.join(input_filepath, "ratings.dat")
+    shutil.copy(src_file, dest_file)
 
     print(f"{input_filepath}, {output_filepath}")
 
@@ -29,3 +35,4 @@ if __name__ == '__main__':
     load_dotenv(find_dotenv())
 
     main()
+        

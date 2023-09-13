@@ -12,6 +12,7 @@ from lit_data import BaseDataset
 def read_data_ml100k(data_dir="data/raw") -> pd.DataFrame:
     names = ['user_id', 'item_id', 'rating', 'timestamp']
     data = pd.read_csv(os.path.join(data_dir, 'u.data'), sep = '\t', names=names)
+    print(f"data from read_data_ml100k(): {data.head()}")
     return data
 
 
