@@ -3,7 +3,7 @@ from src.features.setup_project import read_ratings
 import torch 
 
 
-model = LightMF.load_from_checkpoint(checkpoint_path="lightning_logs/version_6/checkpoints/trained_model_75.ckpt") #path to the checkpoint
+model = LightMF.load_from_checkpoint(checkpoint_path="src/models/trained_model_75.ckpt") #path to the checkpoint
 
 df = read_ratings("ratings.dat", data_dir = "data/processed")
 
