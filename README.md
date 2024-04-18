@@ -64,15 +64,15 @@ Convention : All python scripts must be run from the root specifying the relativ
 
     `./my_env/Scripts/activate`
 
-###   Install the packages from requirements.txt
+###   Install the packages from requirements.txt  (You can ignore the warning with "setup.py")
 
-    `pip install -r .\requirements.txt` ### You will have an error in "setup.py" but this won't interfere with the rest
+    `pip install -r .\requirements.txt`
 
-### 2- Execute import_raw_data.py to import the 4 datasets.
+### 2- Execute import_raw_data.py to import the 4 datasets (say yes when it asks you to create a new folder)
 
-    `python .\src\data\import_raw_data.py` ### It will ask you to create a new folder, accept it.
+    `python .\src\data\import_raw_data.py` 
 
-### 3- Execute make_dataset.py initializing `./data/raw` as input file path and `./data/preprocessed` as output file path.
+### 3- Execute make_dataset.py initializing `./data/raw` as input file path and `./data/processed` as output file path.
 
     `python .\src\data\make_dataset.py`
 
@@ -84,9 +84,10 @@ Convention : All python scripts must be run from the root specifying the relativ
 
     `python .\src\models\train_model.py`
 
-### 5- Finally, execute predict_model.py file to make the predictions on the first 5 users of the dataset. Note that we have 10 recommandations per user
+### 5- Finally, execute predict_model.py file to make the predictions (by default you will be printed predictions for the first 5 users of the dataset). 
 
     `python .\src\models\predict_model.py`
 
+### Note that we have 10 recommandations per user
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
