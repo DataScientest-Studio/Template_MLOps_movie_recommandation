@@ -27,7 +27,7 @@ def import_raw_data(raw_data_relative_path,
             else:
                 print(f'Error accessing the object {input_file}:', response.status_code)
                 
-def main(raw_data_relative_path="../../data/raw", 
+def main(raw_data_relative_path="./data/raw", 
         filenames = ["genome-scores.csv", "genome-tags.csv", "links.csv", 
                     "movies.csv", "ratings.csv", "README.txt", "tags.csv"],
         bucket_folder_url= "https://mlops-project-db.s3.eu-west-1.amazonaws.com/movie_recommandation/"          
