@@ -8,3 +8,4 @@ python-dotenv>=0.5.1
 pandas==2.2.2
 scikit-learn==1.4.2
 click
+uvicorn
