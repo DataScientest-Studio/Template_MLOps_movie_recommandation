@@ -8,17 +8,20 @@ Dockerfile
 # Ignore system-specific files
 __pycache__
 .DS_Store
+.git*
+
 
 # Ignore virtual environment directory
 venv/
+my_env/
 
 # Ignore any build or temporary files
 *.egg-info/
 
 # Others
-data
-my_env
 notebooks
 references
+reports
 LICENSE
 README.md
+src.egg-info

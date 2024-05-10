@@ -1,4 +1,4 @@
-Project Name
+Movie Recommendation
 ==============================
 
 This project is a starting Pack for MLOps projects based on the subject "movie_recommandation". It's not perfect so feel free to make some modifications on it.
@@ -58,35 +58,31 @@ Convention : All python scripts must be run from the root specifying the relativ
 
 ### 1- Create a virtual environment using Virtualenv.
 
-    `python -m venv my_env`
+    python3 -m venv my_env
 
 ###   Activate it 
 
-    `./my_env/Scripts/activate`
+    source ./my_env/bin/activate
 
 ###   Install the packages from requirements.txt  (You can ignore the warning with "setup.py")
 
-    `pip install -r .\requirements.txt`
+    pip3 install -r requirements.txt
 
-### 2- Execute import_raw_data.py to import the 4 datasets (say yes when it asks you to create a new folder)
+### 2- Import & process data, builds & train model for prediction
 
-    `python .\src\data\import_raw_data.py` 
+    bash build.sh
 
-### 3- Execute make_dataset.py initializing `./data/raw` as input file path and `./data/processed` as output file path.
+### 3- Running the app
 
-    `python .\src\data\make_dataset.py`
+###   Using Virtual Environment
+    uvicorn app:app --reload
 
-### 4- Execute build_features.py to preprocess the data (this can take a while)
+Browse the API Docs at http://127.0.0.1:8000/docs
 
-    `python .\src\features\build_features.py`
+###   Using Docker
+    docker compose up
 
-### 5- Execute train_model.py to train the model
-
-    `python .\src\models\train_model.py`
-
-### 5- Finally, execute predict_model.py file to make the predictions (by default you will be printed predictions for the first 5 users of the dataset). 
-
-    `python .\src\models\predict_model.py`
+Browse the API Docs at http://127.0.0.1:8001/docs
 
 ### Note that we have 10 recommandations per user
 

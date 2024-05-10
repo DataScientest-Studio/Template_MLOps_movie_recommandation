@@ -90,3 +90,4 @@ target/
 
 # local
 my_env/*
+myenv/bin/
