@@ -84,6 +84,9 @@ Browse the API Docs at http://127.0.0.1:8000/docs
 
 Browse the API Docs at http://127.0.0.1:8001/docs
 
+### 4- Running tests
+    pytest
+
 ### Note that we have 10 recommandations per user
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>

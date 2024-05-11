@@ -6,6 +6,7 @@ awscli>=1.29.0
 click==8.1.7
 fastapi
 pandas==2.2.2
+pytest==8.2.0
 python-dotenv>=0.5.1
 requests==2.31.0
 scikit-learn==1.4.2
