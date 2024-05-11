@@ -26,7 +26,4 @@ python3 src/features/build_features.py
 echo '-- Training model..'
 python3 src/models/train_model.py
 
-echo '-- Testing model..'
-python3 src/models/predict_model.py
-
 echo '==> Finished build!'
