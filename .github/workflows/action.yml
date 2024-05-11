@@ -1,32 +1,40 @@
+# Define the name of the GitHub Action
 name: Movie Recommendation
 
+# Specify when the GitHub Action should run
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master" ] # Trigger the action on pushes to the "master" branch
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master" ] # Trigger the action on pull requests targeting the "master" branch
 
-permissions:
-  contents: read
+# Define permissions required for the action
+permissions: 
+  contents: read # Grant read access to repository contents
 
+# Define the jobs to be executed
 jobs:
   build-test:
+# Specify the type of virtual machine to run the job
+    runs-on: ubuntu-latest # Run the job on an Ubuntu latest virtual machine
 
-    runs-on: ubuntu-latest
-
+# Define the steps to be executed within the job
     steps:
     - name: Checking repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4 # Use the 'actions/checkout' action to check out the repository content
     - name: Set up Python 3.12
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v3 # Use the 'actions/setup-python' action to set up Python 3.12 environment
       with:
-        python-version: "3.12"
+        python-version: "3.12" # Specify the Python version to be set up
     - name: Install dependencies
+ # Install Python dependencies listed in the 'requirements.txt' file
       run: |
-        pip3 install -r requirements.txt
+        pip3 install -r requirements.txt 
     - name: Build app
+# Execute the 'build.sh' script to build the application
       run: |
-        . build.sh
+        . build.sh 
     - name: Test app
+# Execute the 'tests.sh' script to run tests for the application
       run: |
-        . tests.sh
+        . tests.sh 
