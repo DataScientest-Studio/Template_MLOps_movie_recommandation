@@ -175,7 +175,7 @@ async def predict(
     authorize_user(credentials)  # Ensure user is authorized
     predictions = make_predictions(
         users_id, "app/models/model.pkl", 
-        "app/src/data/data/processed/user_matrix.csv"
+        "data/processed/user_matrix.csv"
     )
     return {"predictions": predictions.tolist()}
 
