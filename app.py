@@ -170,10 +170,12 @@ async def show_data20(
 @app.get("/predict")
 async def predict(
     credentials: HTTPBasicCredentials = Depends(authenticate_user),
-    users_id: List[int] = Query(..., description="List of user IDs"),
+    users_id: List[int] = Query(..., description="List of user IDs")
 ):
-    # authorize_user(credentials)
+    authorize_user(credentials)  # Ensure user is authorized
     predictions = make_predictions(
-        users_id, "models/model.pkl", "data/processed/user_matrix.csv"
+        users_id, "app/models/model.pkl", 
+        "app/src/data/data/processed/user_matrix.csv"
     )
     return {"predictions": predictions.tolist()}
+
