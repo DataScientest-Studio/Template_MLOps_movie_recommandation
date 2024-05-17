@@ -8,6 +8,5 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     volumes:
-      - .:/app
-      - .:/data
-      - .:/models
+      - ./data:/app/data
+      - ./models:/app/models

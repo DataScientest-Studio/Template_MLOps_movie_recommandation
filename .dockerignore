@@ -19,6 +19,8 @@ my_env/
 *.egg-info/
 
 # Others
+data
+models
 notebooks
 references
 reports
