@@ -1,0 +1,29 @@
+# Dockerfiles
+.dockerignore
+Dockerfile
+
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore system-specific files
+__pycache__
+.DS_Store
+.git*
+
+
+# Ignore virtual environment directory
+venv/
+my_env/
+
+# Ignore any build or temporary files
+*.egg-info/
+
+# Others
+data
+models
+notebooks
+references
+reports
+LICENSE
+README.md
+src.egg-info
