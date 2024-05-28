@@ -10,3 +10,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./models:/app/models
+
+volumes:
+  data:
+  models:

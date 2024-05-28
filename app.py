@@ -179,3 +179,4 @@ async def predict(
     )
     return {"predictions": predictions.tolist()}
 
+
