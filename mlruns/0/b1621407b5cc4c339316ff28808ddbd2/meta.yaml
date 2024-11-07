@@ -1,0 +1,16 @@
+artifact_uri: file:///home/jonathan/mlops/juin24_cmlops_reco_film/mlruns/0/b1621407b5cc4c339316ff28808ddbd2/artifacts
+deleted_time: 1729605962375
+end_time: 1729605962372
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: b1621407b5cc4c339316ff28808ddbd2
+run_name: judicious-newt-817
+run_uuid: b1621407b5cc4c339316ff28808ddbd2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729605962357
+status: 3
+tags: []
+user_id: jonathan

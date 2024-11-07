@@ -1,0 +1,16 @@
+artifact_uri: file:///home/jonathan/mlops/juin24_cmlops_reco_film/mlruns/0/157144bdf94e422d91584180e55c8d3f/artifacts
+deleted_time: 1729606140736
+end_time: 1729606140734
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 157144bdf94e422d91584180e55c8d3f
+run_name: peaceful-asp-387
+run_uuid: 157144bdf94e422d91584180e55c8d3f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729606137767
+status: 3
+tags: []
+user_id: jonathan

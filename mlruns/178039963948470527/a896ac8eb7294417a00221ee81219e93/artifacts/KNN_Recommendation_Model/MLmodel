@@ -1,0 +1,12 @@
+artifact_path: KNN_Recommendation_Model
+flavors:
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.5.2
+mlflow_version: 2.17.0
+model_size_bytes: 4365271
+model_uuid: 4585c629e408431695d7de2a6eaf9df3
+run_id: a896ac8eb7294417a00221ee81219e93
+utc_time_created: '2024-10-22 13:15:34.995416'

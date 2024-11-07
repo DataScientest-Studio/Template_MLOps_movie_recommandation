@@ -1,0 +1,6 @@
+artifact_location: file:///home/jonathan/mlops/juin24_cmlops_reco_film/mlruns/178039963948470527
+creation_time: 1729602311346
+experiment_id: '178039963948470527'
+last_update_time: 1729602311346
+lifecycle_stage: active
+name: Movie Recommendation Model

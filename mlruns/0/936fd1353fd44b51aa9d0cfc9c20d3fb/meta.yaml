@@ -1,0 +1,16 @@
+artifact_uri: file:///home/jonathan/mlops/juin24_cmlops_reco_film/mlruns/0/936fd1353fd44b51aa9d0cfc9c20d3fb/artifacts
+deleted_time: 1729606137761
+end_time: 1729606137757
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 936fd1353fd44b51aa9d0cfc9c20d3fb
+run_name: hilarious-bee-221
+run_uuid: 936fd1353fd44b51aa9d0cfc9c20d3fb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729606137740
+status: 3
+tags: []
+user_id: jonathan

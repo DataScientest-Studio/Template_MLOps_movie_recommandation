@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1729602458296
+current_stage: Archived
+description: null
+last_updated_timestamp: 1729602937917
+name: KNN_Recommendation_Model
+run_id: 6436152c1d054957ba391ba39505ee25
+run_link: null
+source: file:///home/jonathan/mlops/juin24_cmlops_reco_film/mlruns/178039963948470527/6436152c1d054957ba391ba39505ee25/artifacts/KNN_Recommendation_Model
+status: READY
+status_message: null
+storage_location: file:///home/jonathan/mlops/juin24_cmlops_reco_film/mlruns/178039963948470527/6436152c1d054957ba391ba39505ee25/artifacts/KNN_Recommendation_Model
+user_id: null
+version: 1

@@ -1,0 +1,15 @@
+artifact_uri: file:///home/jonathan/mlops/juin24_cmlops_reco_film/mlruns/178039963948470527/6436152c1d054957ba391ba39505ee25/artifacts
+end_time: 1729602458311
+entry_point_name: ''
+experiment_id: '178039963948470527'
+lifecycle_stage: active
+run_id: 6436152c1d054957ba391ba39505ee25
+run_name: KNN_Recommendation_Model
+run_uuid: 6436152c1d054957ba391ba39505ee25
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729602311564
+status: 3
+tags: []
+user_id: jonathan
