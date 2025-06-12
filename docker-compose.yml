@@ -1,0 +1,93 @@
+version: "3.8"
+
+x-common-service: &common-service
+  build:
+    context: .
+    dockerfile: dockerfiles/Dockerfile
+  volumes:
+    - ./src:/app/src
+    - ./data:/app/data
+    - ./models:/app/models
+    - ./metrics:/app/metrics
+    - ./reports:/app/reports
+    - "/var/run/docker.sock:/var/run/docker.sock"
+  working_dir: /app
+  restart: "no"
+
+services:
+  import_raw_data:
+    <<: *common-service
+    image: maquirog/import_raw_data:latest
+    command: ["python", "src/data/import_raw_data.py"]
+
+  build_features:
+    <<: *common-service
+    image: maquirog/build_features:latest
+    command: ["python", "src/data/build_features.py"]
+
+  train:
+    <<: *common-service
+    image: maquirog/train:latest
+    command: ["python", "src/models/train.py"]
+
+  predict:
+    <<: *common-service
+    image: maquirog/predict:latest
+    command: ["python", "src/models/predict.py"]
+
+  evaluate:
+    <<: *common-service
+    image: maquirog/evaluate:latest
+    command: ["python", "src/models/evaluate.py"]
+
+  experiment:
+    <<: *common-service
+    ports:
+      - "5000:5000"
+    environment:
+      - PYTHONPATH=/app
+      - HOST_PROJECT_PATH=${HOST_PROJECT_PATH}
+    command: ["bash", "src/experiment/entrypoint.sh"]
+    depends_on:
+      - api
+    volumes:
+      - ${HOST_PROJECT_PATH}/mlruns:/app/mlruns
+      - ${HOST_PROJECT_PATH}/metrics:/app/metrics
+
+  api:
+    <<: *common-service
+    image: maquirog/api:latest
+    ports:
+      - "8000:8000"
+    command: ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    restart: "no"
+    environment:
+      - HOST_PROJECT_PATH=${HOST_PROJECT_PATH}
+
+  evidently:
+    <<: *common-service
+    image: maquirog/evidently:latest
+    command: ["bash", "-c", "python evidently/simulate_drift.py && python evidently/run_evidently_report.py"]
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api
+    
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards

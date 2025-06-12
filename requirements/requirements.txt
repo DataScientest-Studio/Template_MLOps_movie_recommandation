@@ -1,0 +1,10 @@
+fastapi
+pydantic
+pandas
+numpy
+scikit-learn
+uvicorn
+requests
+docker
+evidently==0.5.0
+mlflow
